@@ -18,7 +18,7 @@ describe("SimpleSmartContract", function () {
   // }
 
   describe("Deployment", function () {
-    it("Should return the deployed Contract Instance", async function () {
+    it("It Should return the deployed Contract Instance", async function () {
       const Contract = await ethers.getContractFactory("SimpleSmartContract");
       const simpleSmartContract = await Contract.deploy();
       console.log(simpleSmartContract.address);
