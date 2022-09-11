@@ -8,6 +8,13 @@ const simpleContractcontract = new ethers.Contract(
   simpleContractabi
 );
 
+const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/");
+const signer = provider.getSigner();
+
+const add = await signer.getAddress();
+// console.log(add);
+// console.log(signer);
+
 const helloContractaddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const helloContractabi = [
   {
@@ -27,22 +34,43 @@ const helloContractabi = [
 
 const helloContract = new ethers.Contract(
   helloContractaddress,
-  helloContractabi
+  helloContractabi,
+  provider
 );
 
 const helloHere = async () => {
   const result = await helloContract;
-  const check = result.populateTransaction.hello().data;
+  const check = await result.hello();
   return check;
 };
 
 const result = helloHere();
 
 console.log(simpleContractcontract, helloContract, result);
+console.log(helloContract.hello());
+console.log(result);
 console.log(helloContract.address);
 
-document.addEventListener("DOMContentLoaded", () => {
-  helloContract.callStatic.hello().then((result) => {
+function checkHello() {
+  console.log("here");
+  helloContract.hello().then((result) => {
     document.getElementById("hello").innerHTML = result;
+    console.log(result);
   });
-});
+}
+
+addEventListener("DOMContentLoaded", checkHello());
+
+// function verify() {
+//   console.log("DOM fully loaded and parsed");
+// }
+
+// addEventListener("DOMContentLoaded", verify());
+
+// addEventListener("DOMContentLoaded", (event) => {
+//   console.log("DOM fully loaded and parsed");
+// });
+
+// onDOMContentLoaded = (event) => {
+//   console.log("DOM fully loaded and parsed");
+// };
