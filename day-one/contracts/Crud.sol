@@ -46,5 +46,6 @@ contract Crud {
                 return i;
             }
         }
+        revert("User does not exist);
     }
 }
