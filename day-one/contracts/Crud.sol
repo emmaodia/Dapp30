@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.16;
+pragma solidity ^0.8.9;
 
 contract Crud {
     struct User {
@@ -17,7 +17,7 @@ contract Crud {
     }
 
     function read(uint _id) public view returns (uint, string memory) {
-        uint i = find(id);
+        uint i = find(_id);
         return (users[i].id, users[i].name);
         // for(uint i = 0; i < users.length; i++) {
         //     if(users[i].id == _id) {
@@ -40,12 +40,12 @@ contract Crud {
         delete users[id];
     }
 
-    function find(uint id) internal view returns (uint) {
+    function find(uint _id) internal view returns (uint) {
         for (uint i = 0; i < users.length; i++) {
             if (users[i].id == _id) {
                 return i;
             }
         }
-        revert("User does not exist);
+        revert("User does not exist");
     }
 }
