@@ -38,8 +38,30 @@ const simpleStorageContractabi = [
 const Contract = new ethers.Contract(
   simpleStorageContractaddress,
   simpleStorageContractabi,
-  provider
+  signer
 );
 
 const add = await signer.getAddress();
 console.log(Contract);
+console.log(add);
+
+function doSomething() {
+  const $setData = document.getElementById("setData");
+  const $data = document.getElementById("data");
+
+  $setData.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const data = e.target.elements[0].value;
+    console.log(data);
+    Contract.set(data);
+    getData();
+  });
+
+  const getData = () => {
+    Contract.data().then((result) => {
+      $data.innerHTML = result;
+    });
+  };
+}
+addEventListener("DOMContentLoaded", doSomething());
