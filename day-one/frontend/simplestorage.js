@@ -5,11 +5,16 @@ const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/");
 const signer = provider.getSigner();
 
 const simpleStorageContractaddress =
-  "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  "0x610178dA211FEF7D417bC0e6FeD39F05609AD788";
 const simpleStorageContractabi = [
   {
     inputs: [],
-    name: "data",
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "getGreeting",
     outputs: [
       {
         internalType: "string",
@@ -21,14 +26,27 @@ const simpleStorageContractabi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "string",
-        name: "_data",
+        name: "_greeting",
         type: "string",
       },
     ],
-    name: "set",
+    name: "setGreeting",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -43,7 +61,7 @@ const Contract = new ethers.Contract(
 
 const add = await signer.getAddress();
 console.log(Contract);
-console.log(add);
+// console.log(add);
 
 function doSomething() {
   const $setData = document.getElementById("setData");
